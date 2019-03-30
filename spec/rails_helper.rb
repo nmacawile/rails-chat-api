@@ -7,6 +7,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'database_cleaner'
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -39,6 +40,8 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
+  config.include RequestSpecHelper
+  config.include ControllerSpecHelper
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
