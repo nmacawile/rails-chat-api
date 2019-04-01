@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Users API', type: :request do
   let(:user) { build :user }
   let(:valid_attributes) do
-    attributes_for :user, password_confirmation: user.password
+    attributes_for :user, password: user.password,
+                          password_confirmation: user.password
   end
   
   describe 'POST /signup' do
