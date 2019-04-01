@@ -10,10 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_29_051118) do
+ActiveRecord::Schema.define(version: 2019_04_01_125543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chat_messages", force: :cascade do |t|
+    t.string "messageable_type"
+    t.bigint "messageable_id"
+    t.bigint "user_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["messageable_type", "messageable_id"], name: "index_chat_messages_on_messageable_type_and_messageable_id"
+    t.index ["user_id"], name: "index_chat_messages_on_user_id"
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "group_chats", force: :cascade do |t|
+    t.bigint "creator_id"
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_group_chats_on_creator_id"
+  end
+
+  create_table "joins", force: :cascade do |t|
+    t.string "joinable_type"
+    t.bigint "joinable_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["joinable_type", "joinable_id"], name: "index_joins_on_joinable_type_and_joinable_id"
+    t.index ["user_id"], name: "index_joins_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -29,4 +63,6 @@ ActiveRecord::Schema.define(version: 2019_03_29_051118) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "group_chats", "users", column: "creator_id"
+  add_foreign_key "joins", "users"
 end

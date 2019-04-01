@@ -12,4 +12,16 @@ RSpec.describe User, type: :model do
       expect(subject.name).to eq "#{first_name} #{last_name}"
     end
   end
+  
+  it do
+    is_expected.to(
+      have_many(:group_chats_created)
+        .with_foreign_key(:creator_id)
+        .dependent(:destroy))
+  end
+  
+  it { is_expected.to have_many(:joins).dependent(:destroy) }
+  it { is_expected.to have_many(:group_chats) }
+  it { is_expected.to have_many(:chats) }
+  it { is_expected.to have_many(:chat_messages) }
 end
