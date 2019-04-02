@@ -25,5 +25,12 @@ RSpec.describe QueryChatBetweenUsers do
           .to change { Chat.count }.by(1)
       end
     end
+    
+    context 'when user with id doesn\'t exist' do
+      it 'doesn\'t create a new chat' do
+        expect { described_class.new(100, 200).call }
+          .not_to change { Chat.count }
+      end
+    end
   end
 end

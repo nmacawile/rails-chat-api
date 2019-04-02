@@ -21,8 +21,11 @@ class QueryChatBetweenUsers
   attr_reader :users
   
   def create_chat_room
-    c = Chat.create!
+    c = Chat.new
     User.find(users).each { |user| c.users << user }
+    c.save
     c
+  rescue
+    nil
   end
 end
