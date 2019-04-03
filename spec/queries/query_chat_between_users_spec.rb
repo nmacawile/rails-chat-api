@@ -26,10 +26,17 @@ RSpec.describe QueryChatBetweenUsers do
       end
     end
     
-    context 'when user with id doesn\'t exist' do
+    context 'raises a RecordNotFound error' do
       it 'doesn\'t create a new chat' do
-        expect { described_class.new(100, 200).call }
-          .not_to change { Chat.count }
+        expect { described_class.new(user1.id, 200).call }
+          .to raise_error(ExceptionHandler::BadRequest, 'Bad request')
+      end
+    end
+    
+    context 'raises a BadRequest error' do
+      it 'doesn\'t create a new chat' do
+        expect { described_class.new(user1.id, user1.id).call }
+          .to raise_error(ExceptionHandler::BadRequest, 'Bad request')
       end
     end
   end
