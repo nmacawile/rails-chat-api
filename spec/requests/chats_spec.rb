@@ -31,7 +31,7 @@ RSpec.describe 'Chats API', type: :request do
   end
   
   describe 'GET /chats' do
-    before { get '/chats',  headers: request_headers(user.id) }
+    before { get '/chats', headers: request_headers(user.id) }
   
     it 'returns all chats with messages linked to user' do
       expect(json.size).to eq(2)

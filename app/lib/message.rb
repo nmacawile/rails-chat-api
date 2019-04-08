@@ -18,4 +18,8 @@ class Message
   def self.bad_request
     'Bad request'
   end
+  
+  def self.access_denied
+    'Access denied'
+  end
 end
