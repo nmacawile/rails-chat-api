@@ -45,7 +45,7 @@ RSpec.describe 'ChatMessages API', type: :request do
   end
   
   describe 'POST /chats/:chat_id/messages' do
-    context 'when user belongs in the chat' do
+    context 'when valid request' do
       before do
         post("/chats/#{chat_id}/messages", 
           params: { content: 'Hello world!!!' }.to_json,
@@ -54,6 +54,22 @@ RSpec.describe 'ChatMessages API', type: :request do
       
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
+      end
+    end
+    
+    context 'when invalid request' do
+      before do
+        post("/chats/#{chat_id}/messages", 
+          params: {},
+          headers: request_headers(user1.id))
+      end
+      
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+      
+      it 'returns an Unauthorized error message' do
+        expect(json['message']).to match(/Validation failed/)
       end
     end
     
