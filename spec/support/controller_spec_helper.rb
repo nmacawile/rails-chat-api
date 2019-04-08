@@ -8,7 +8,10 @@ module ControllerSpecHelper
   end
   
   def request_headers(user_id = nil)
-    headers = { 'Content-Type' => 'application/json' }
+    headers = { 
+      'Content-Type' => 'application/json',
+      'Accept' => 'json'
+    }
     headers['Authorization'] = token_generator(user_id) if user_id
     headers
   end

@@ -4,17 +4,14 @@ class ChatsController < ApplicationController
   
   def index
     @chats = current_user.chats
-    json_response @chats
   end
   
-  def show
-    json_response @chat
-  end
+  def show;end
   
   def create
     @chat = QueryChatBetweenUsers
       .new(current_user.id, params[:user_id]).call
-    json_response @chat
+    render :show
   end
   
   private

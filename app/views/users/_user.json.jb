@@ -1,0 +1,5 @@
+{
+  id: user.id,
+  type: 'user',
+  name: user.name
+}

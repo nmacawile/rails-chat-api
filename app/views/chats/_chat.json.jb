@@ -1,0 +1,5 @@
+{
+  id: chat.id,
+  type: 'chat',
+  user: render(chat.users.excluding(current_user).first)
+}
