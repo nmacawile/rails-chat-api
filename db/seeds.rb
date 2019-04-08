@@ -16,8 +16,15 @@ Join.create!(user: u2, joinable: c)
 u1.chat_messages.create!(messageable: c, content: Faker::Lorem.paragraph)
 u2.chat_messages.create!(messageable: c, content: Faker::Lorem.paragraph)
 
-
 c2 = Chat.create!
 u3 = User.find(3)
 Join.create!(user: u1, joinable: c2)
 Join.create!(user: u3, joinable: c2)
+
+u1.chat_messages.create!(messageable: c2, content: Faker::Lorem.paragraph)
+u3.chat_messages.create!(messageable: c2, content: Faker::Lorem.paragraph)
+
+c3 = Chat.create!
+u4 = User.find(4)
+Join.create!(user: u1, joinable: c3)
+Join.create!(user: u4, joinable: c3)

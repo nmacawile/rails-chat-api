@@ -17,19 +17,23 @@ RSpec.describe 'Chats API', type: :request do
       c = create :chat
       create :join, joinable: c, user: user
       create :join, joinable: c, user: other_user
+      user.chat_messages
+        .create!(messageable: c, content: Faker::Lorem.paragraph)
     end
     
     users[2..3].each do |other_user|
       c = create :chat
       create :join, joinable: c, user: user2
       create :join, joinable: c, user: other_user
+      user2.chat_messages
+        .create!(messageable: c, content: Faker::Lorem.paragraph)
     end
   end
   
   describe 'GET /chats' do
     before { get '/chats',  headers: request_headers(user.id) }
   
-    it 'returns all chats linked to user' do
+    it 'returns all chats with messages linked to user' do
       expect(json.size).to eq(2)
     end
   

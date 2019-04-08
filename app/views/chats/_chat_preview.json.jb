@@ -1,5 +1,5 @@
 hash = render(chat)
 unless chat.chat_messages.empty?
-  hash[:latest_message] = render(chat.chat_messages.first)
+  hash[:latest_message] = render(chat.latest_message)
 end
 hash

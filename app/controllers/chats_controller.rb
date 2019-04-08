@@ -3,7 +3,7 @@ class ChatsController < ApplicationController
   before_action :restrict_chat_access, only: :show
   
   def index
-    @chats = current_user.chats
+    @chats = current_user.chats.with_messages
   end
   
   def show;end
