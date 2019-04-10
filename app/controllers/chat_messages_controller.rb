@@ -11,7 +11,7 @@ class ChatMessagesController < ApplicationController
       .create!(
         user: current_user,
         content: params[:content])
-    ChatChannel.broadcast_to @chat, render_to_string(:show)
+    ChatChannel.broadcast_to @chat, render_to_string(:show, format: :json)
     render :show, status: :created
   end
   
