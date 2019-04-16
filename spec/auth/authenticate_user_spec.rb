@@ -8,17 +8,17 @@ RSpec.describe AuthenticateUser do
   describe '#call' do
     context 'when valid credentials' do
       it 'returns an auth token' do
-        token = valid_auth_object.call
+        token = valid_auth_object.call[:auth_token]
         expect(token).not_to be_nil
+      end
+      
+      it 'include user info' do
+        user = valid_auth_object.call[:user]
+        expect(user).not_to be_nil
       end
     end
     
     context 'when invalid credentials' do
-      it 'returns an auth token' do
-        token = valid_auth_object.call
-        expect(token).not_to be_nil
-      end
-      
       it 'raises an authentication error' do
         expect { invalid_auth_object.call }
           .to raise_error(
