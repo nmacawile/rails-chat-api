@@ -1,7 +1,8 @@
+preview ||= preview
 {
   id: chat_message.id,
   type: 'message',
-  content: chat_message.content_preview,
+  content: preview ? chat_message.content_preview : chat_message.content,
   created_at: chat_message.created_at,
   user: render(chat_message.user)
 }
