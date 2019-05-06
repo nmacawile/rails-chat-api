@@ -1,5 +1,10 @@
 class User < ApplicationRecord
   scope :excluding, -> (user) { where.not(id: user) }
+  
+  before_save do
+    first_name.squish!
+    last_name.squish!
+  end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

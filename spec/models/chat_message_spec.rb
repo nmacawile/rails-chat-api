@@ -19,5 +19,12 @@ RSpec.describe ChatMessage, type: :model do
     it 'does not have a user' do
       expect(user.persisted?).to be false
     end
+    
+    it 'cleans up line breaks and spaces before saving' do
+      new_message = 
+        build(:chat_message, :chat, content: "\n\n\nHello\n\n\n\nWorld!\n\n\n");
+      new_message.save
+      expect(new_message.content).to match(/Hello\R{2}World/)
+    end
   end
 end

@@ -1,6 +1,10 @@
 class ChatMessage < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   
+  before_save do
+    self.content = content.strip.gsub(/\R{2,}/, "\r\n\r\n").gsub(/\R/, "\r\n")
+  end
+  
   belongs_to :messageable, polymorphic: true
   belongs_to :user
   
