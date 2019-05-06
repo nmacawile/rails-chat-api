@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   post 'signup' => 'users#create'
+  get 'users' => 'users#index'
   post 'auth/login' => 'authentication#authenticate'
   resources :chats, only: [:index, :show, :create] do
     resources :messages, controller: 'chat_messages', only: [:index, :create]

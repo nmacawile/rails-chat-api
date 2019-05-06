@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   skip_before_action :authorize_request, only: :create
   
+  def index
+    @users = User.excluding(current_user).page(params[:page]).per(20)
+  end
+  
   def create
     @user = User.create!(user_params)
     auth_info = AuthenticateUser.new(@user.email, @user.password).call

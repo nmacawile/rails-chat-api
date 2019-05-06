@@ -36,4 +36,17 @@ RSpec.describe 'Users API', type: :request do
       end
     end
   end
+  
+  describe 'GET /users' do
+    let(:users) { create_list(:user, 30) }
+    before { get '/users', headers: request_headers(users.first.id) }
+    
+    it 'returns a paginated list of users' do
+      expect(json.count).to eq(20)
+    end
+    
+    it 'returns status code 200' do
+      expect(response).to have_http_status(200)
+    end
+  end
 end
