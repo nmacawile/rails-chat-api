@@ -1,4 +1,5 @@
 class Chat < ApplicationRecord
+  default_scope -> { order(updated_at: :desc) }
   scope :with_messages, -> { joins(:chat_messages).uniq }
   
   has_many :joins, as: :joinable, dependent: :destroy

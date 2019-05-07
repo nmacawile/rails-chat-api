@@ -5,7 +5,7 @@ class ChatMessage < ApplicationRecord
     self.content = content.strip.gsub(/\R{2,}/, "\r\n\r\n").gsub(/\R/, "\r\n")
   end
   
-  belongs_to :messageable, polymorphic: true
+  belongs_to :messageable, polymorphic: true, touch: true
   belongs_to :user
   
   validates_presence_of :content
