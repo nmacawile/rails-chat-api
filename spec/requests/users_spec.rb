@@ -38,15 +38,33 @@ RSpec.describe 'Users API', type: :request do
   end
   
   describe 'GET /users' do
-    let(:users) { create_list(:user, 30) }
-    before { get '/users', headers: request_headers(users.first.id) }
+    let(:users) { create_list(:user, 30, first_name: 'Baz', last_name: 'Biz') }
     
-    it 'returns a paginated list of users' do
-      expect(json.count).to eq(20)
+    context 'without a query parameter' do
+      before { get '/users', headers: request_headers(users.first.id) }
+      
+      it 'returns a paginated list of users' do
+        expect(json.count).to eq(20)
+      end
+      
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
     end
     
-    it 'returns status code 200' do
-      expect(response).to have_http_status(200)
+    context 'with a query parameter' do
+      before do
+        create(:user, first_name: 'Foobar')
+        get '/users', params: { q: 'Foobar' }, headers: request_headers(users.first.id)
+      end
+      
+      it 'returns a paginated list of users' do
+        expect(json.count).to eq(1)
+      end
+      
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
     end
   end
 end
