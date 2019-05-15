@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     @users = QueryUsers
                .new(params[:q]).call
                .excluding(current_user)
-               .page(params[:page]).per(20)
+               .page(params[:page]).per(10)
   end
   
   def create

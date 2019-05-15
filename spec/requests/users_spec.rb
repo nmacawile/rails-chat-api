@@ -44,7 +44,15 @@ RSpec.describe 'Users API', type: :request do
       before { get '/users', headers: request_headers(users.first.id) }
       
       it 'returns a paginated list of users' do
-        expect(json.count).to eq(20)
+        expect(json['users'].count).to eq(10)
+      end
+      
+      it 'includes the total number of pages' do
+         expect(json['pages']).to eq(3)
+      end
+      
+      it 'includes the total number of users, excluding logged in user' do
+         expect(json['count']).to eq(29)
       end
       
       it 'returns status code 200' do
@@ -59,7 +67,15 @@ RSpec.describe 'Users API', type: :request do
       end
       
       it 'returns a paginated list of users' do
-        expect(json.count).to eq(1)
+        expect(json['users'].count).to eq(1)
+      end
+      
+      it 'includes the total number of pages' do
+         expect(json['pages']).to eq(1)
+      end
+      
+      it 'includes the total number of users' do
+         expect(json['count']).to eq(1)
       end
       
       it 'returns status code 200' do
