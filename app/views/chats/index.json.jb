@@ -1,1 +1,1 @@
-render partial: 'chat_preview', collection: @chats, as: :chat
+render partial: 'chat', collection: @chats, as: :chat

@@ -1,5 +1,11 @@
-{
+hash = {
   id: chat.id,
   type: 'chat',
   user: render(chat.users.excluding(current_user).first)
 }
+
+unless chat.chat_messages.empty?
+  hash[:latest_message] = render(chat.latest_message, preview: true)
+end
+
+hash
