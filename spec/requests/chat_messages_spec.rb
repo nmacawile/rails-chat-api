@@ -52,8 +52,8 @@ RSpec.describe 'ChatMessages API', type: :request do
           headers: request_headers(user1.id))
       end
       
-      it 'returns status code 201' do
-        expect(response).to have_http_status(201)
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
       end
     end
     
