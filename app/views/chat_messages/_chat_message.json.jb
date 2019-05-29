@@ -4,6 +4,5 @@ preview ||= preview
   type: 'message',
   content: preview ? chat_message.content_preview : chat_message.content,
   created_at: chat_message.created_at,
-  user: render(chat_message.user),
-  chat_id: chat_message.messageable.id,
+  user: render(chat_message.user)
 }
