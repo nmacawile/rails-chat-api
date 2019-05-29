@@ -25,8 +25,15 @@ class ChatMessagesController < ApplicationController
     ChatChannel.broadcast_to(
       @chat,
       render_to_string(:show, format: :json))
+      
+    user_a, user_b = @chat.users
+    notify_user(user_a, user_b)
+    notify_user(user_b, user_a)
+  end
+  
+  def notify_user(notifiable, other_user)
     NotificationsChannel.broadcast_to(
-      @chat.users.excluding(current_user).first,
-      render_to_string('chats/notification', format: :json))
+      notifiable,
+      render_to_string('chats/notification', format: :json, locals: { other_user: other_user }))
   end
 end
