@@ -1,5 +1,6 @@
 {
   id: user.id,
   type: 'user',
-  name: user.name
+  name: user.name,
+  present: user.present
 }
