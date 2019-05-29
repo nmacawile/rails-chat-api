@@ -27,6 +27,6 @@ class ChatMessagesController < ApplicationController
       render_to_string(:show, format: :json))
     NotificationsChannel.broadcast_to(
       @chat.users.excluding(current_user).first,
-      render_to_string(template: 'chats/show', format: :json))
+      render_to_string('chats/notification', format: :json))
   end
 end

@@ -1,0 +1,3 @@
+hash = render @chat
+hash[:user] = render(current_user)
+hash
