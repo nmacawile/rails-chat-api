@@ -29,7 +29,8 @@ class AuthenticateUser
       email: user.email,
       name: user.name,
       first_name: user.first_name,
-      last_name: user.last_name
+      last_name: user.last_name,
+      visible: user.visible
     }
   end
 end
