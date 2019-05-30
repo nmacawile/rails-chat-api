@@ -15,4 +15,8 @@ module ControllerSpecHelper
     headers['Authorization'] = token_generator(user_id) if user_id
     headers
   end
+  
+  def user_attributes(user)
+    user.slice(:id, :name, :email, :first_name, :last_name, :visible)
+  end
 end
