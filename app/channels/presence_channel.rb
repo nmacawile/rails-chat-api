@@ -1,12 +1,21 @@
 class PresenceChannel < ApplicationCable::Channel
   def subscribed
-    chat_user.update(present: true)
     stream_from 'presence'
-    ActionCable.server.broadcast('presence', { id: chat_user.id, present: true })
+    update_presence(chat_user, true)
   end
 
   def unsubscribed
-    chat_user.update(present: false)
-    ActionCable.server.broadcast('presence', { id: chat_user.id, present: false })
+    update_presence(chat_user, false)
+  end
+  
+  private
+  
+  def update_presence(user, presence)
+    user.update(present: presence)
+    if user.visible
+      ActionCable.server.broadcast(
+        'presence', 
+        { id: user.id, present: presence })
+    end
   end
 end

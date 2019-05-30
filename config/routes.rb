@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post 'signup' => 'users#create'
   get 'users' => 'users#index'
   post 'auth/login' => 'authentication#authenticate'
+  patch 'visibility' => 'visibility#update'
   resources :chats, only: [:index, :show, :create] do
     resources :messages, controller: 'chat_messages', only: [:index, :create]
   end

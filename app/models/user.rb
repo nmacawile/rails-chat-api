@@ -31,4 +31,8 @@ class User < ApplicationRecord
   def name
     "#{first_name} #{last_name}"
   end
+  
+  def visible_and_present?
+    visible && present
+  end
 end
