@@ -4,7 +4,9 @@ class ChatMessagesController < ApplicationController
   after_action :broadcast_message, only: :create
   
   def index
-    @messages = @chat.chat_messages.page(params[:page]).per(20)
+    @messages = @chat.chat_messages
+      .older_than(params[:before])
+      .page.per(20)
   end
   
   def create

@@ -42,6 +42,27 @@ RSpec.describe 'ChatMessages API', type: :request do
         expect(json['message']).to match 'Access denied'
       end
     end
+    
+    context 'when querying messages created before a given message' do
+      let(:latest_message_id) { chat_messages.last.id }
+      
+      before do
+        get "/chats/#{chat_id}/messages", params: { before: latest_message_id },
+                                          headers: request_headers(user1.id)
+      end
+      
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+      
+      it 'returns the paginated messages' do
+        expect(json.count).to eq(20)
+      end
+      
+      it 'doesn\'t include the queried message in the results' do
+        expect(json.first['id']).to be < latest_message_id
+      end
+    end
   end
   
   describe 'POST /chats/:chat_id/messages' do

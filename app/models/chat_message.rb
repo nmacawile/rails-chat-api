@@ -1,5 +1,9 @@
 class ChatMessage < ApplicationRecord
-  default_scope -> { order(created_at: :desc) }
+  default_scope -> { order(id: :desc) }
+  
+  scope :older_than, -> id { 
+    id ? where("id < #{id.to_i}") : all
+  }
   
   before_save do
     self.content = content.strip.gsub(/\R{2,}/, "\r\n\r\n").gsub(/\R/, "\r\n")
