@@ -25,7 +25,12 @@ RSpec.describe 'ChatMessages API', type: :request do
       end
       
       it 'returns the paginated chat messages' do
-        expect(json.size).to eq(20)
+        expect(json['messages'].size).to eq(20)
+      end
+      
+      it 'returns the pagination data' do
+        expect(json['pages']).not_to be_nil
+        expect(json['count']).not_to be_nil
       end
     end
     
@@ -56,11 +61,16 @@ RSpec.describe 'ChatMessages API', type: :request do
       end
       
       it 'returns the paginated messages' do
-        expect(json.count).to eq(20)
+        expect(json['messages'].count).to eq(20)
+      end
+      
+      it 'returns the pagination data' do
+        expect(json['pages']).not_to be_nil
+        expect(json['count']).not_to be_nil
       end
       
       it 'doesn\'t include the queried message in the results' do
-        expect(json.first['id']).to be < latest_message_id
+        expect(json['messages'].first['id']).to be < latest_message_id
       end
     end
   end

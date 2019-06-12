@@ -1,1 +1,5 @@
-render partial: 'chat_message', collection: @messages, as: :chat_message
+{ 
+  messages: render(partial: 'chat_message', collection: @messages, as: :chat_message),
+  pages: @messages.total_pages,
+  count: @messages.total_count
+}
