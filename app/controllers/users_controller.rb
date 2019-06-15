@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
   
   def update
-    current_user.update(edit_user_params)
+    current_user.update!(edit_user_params)
     head :no_content
   end
   
