@@ -83,4 +83,46 @@ RSpec.describe 'Users API', type: :request do
       end
     end
   end
+  
+  describe 'PATCH /edit/profile' do
+    before { user.save }
+    
+    context 'when valid request' do
+      before do
+        patch('/edit/profile',
+          params: { first_name: 'Foo', last_name: 'Bar' }.to_json,
+          headers: request_headers(user.id))
+      end
+      
+      it 'updates the user' do
+        user.reload
+        expect(user.name).to eq('Foo Bar')
+      end
+      
+      it 'returns a 204 status code' do
+        expect(response).to have_http_status(204)
+      end
+    end
+    
+    context 'when invalid request' do
+      before do
+        patch('/edit/profile',
+          params: { first_name: 'Foo', last_name: 'Bar' }.to_json,
+          headers: request_headers(0))
+      end
+      
+      it 'doesn\'t update the user' do
+        user.reload
+        expect(user.name).not_to eq('Foo Bar')
+      end
+      
+      it 'returns a 422 status code' do
+        expect(response).to have_http_status(422)
+      end
+      
+      it 'returns a failure message' do
+        expect(json['message']).to match(/Invalid token/)
+      end
+    end
+  end
 end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'users' => 'users#index'
   post 'auth/login' => 'authentication#authenticate'
   get 'auth/validate' => 'token_validation#validate'
+  patch 'edit/profile' => 'users#update'
   patch 'visibility' => 'visibility#update'
   resources :chats, only: [:index, :show, :create] do
     resources :messages, controller: 'chat_messages', only: [:index, :create]
