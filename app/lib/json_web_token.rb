@@ -1,7 +1,7 @@
 class JsonWebToken
   HMAC_SECRET =
     Rails.env.production? ?
-      ENV['SECRET_KEY'] :
+      ENV['SECRET_KEY_BASE'] :
       Rails.application.credentials.secret_key_base
   
   def self.encode(payload, exp = 24.hours.from_now)
