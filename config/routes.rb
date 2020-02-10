@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users
   post 'signup' => 'users#create'
   get 'users' => 'users#index'
   post 'auth/login' => 'authentication#authenticate'
