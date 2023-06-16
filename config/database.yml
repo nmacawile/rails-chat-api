@@ -18,13 +18,16 @@ default: &default
   adapter: postgresql
   encoding: unicode
   template: template0
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: db
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: workspace_development
+  database: rails_chat_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -58,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: workspace_test
+  database: rails_chat_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +84,5 @@ test:
 #
 production:
   <<: *default
-  database: workspace_production
-  username: workspace
-  password: <%= ENV['WORKSPACE_DATABASE_PASSWORD'] %>
+  database: rails_chat_production
+  url: <%= ENV['POSTGRES_URL'] %>
