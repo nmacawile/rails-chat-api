@@ -5,9 +5,12 @@
 
 # Read more: https://github.com/cyu/rack-cors
 
+hosts = ['localhost:4200']
+hosts << ENV['FRONTEND_URL'] if ENV['FRONTEND_URL']
+
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins ENV['FRONTEND_URL']
+    origins hosts
 
     resource '*',
       headers: :any,
