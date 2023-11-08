@@ -1,8 +1,8 @@
-# Rails Chat (frontend)
+# Rails Chat (backend)
 
 [Link to app](https://nmacawile.github.io/rails-chat)
 
-[API backend repository](https://github.com/nmacawile/rails-chat-api)
+[frontend repository](https://github.com/nmacawile/rails-chat)
 
 A chat app developed with Ruby on Rails API backend and Angular frontend. It uses Rails' ActionCable to maintain a persistent connection between the chat server and the end users. Angular and Angular Material were used create an interactive and nice looking user interface.
 
